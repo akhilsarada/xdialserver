@@ -109,7 +109,7 @@ if tr181Set -g Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.XDial.Enable 2>&1 
       retry_count=`expr $retry_count + 1`
     done
 
-    /usr/share/xdial/gdial-server -I ${XDIAL_IFNAME}:0 -F ${FriendlyName} -R ${Manufacturer} -M ${ModelName} -U ${UUID} -A "${AppList} "
+    exec /usr/share/xdial/gdial-server -I ${XDIAL_IFNAME}:0 -F ${FriendlyName} -R ${Manufacturer} -M ${ModelName} -U ${UUID} -A "${AppList} "
 else
     echo "rfc disabled: gdial-server not started"
 fi
