@@ -179,7 +179,6 @@ static void gdial_quit_thread(int signum)
 {
   g_print("Exiting DIAL Server thread %d \r\n",signum);
   server_activation_handler(0, "");
-  sleep(3);               //Sleeping 3 sec to allow existing request to finish processing.
   g_main_loop_quit(loop_);
   
 }
@@ -368,6 +367,8 @@ int main(int argc, char *argv[]) {
    */
   loop_ = g_main_loop_new (NULL, TRUE);
   g_main_loop_run (loop_);
+  
+  sleep(5);               //Sleeping 5 sec to allow existing request to finish processing.
  
   for (int i = 0; i < sizeof(servers)/sizeof(servers[0]); i++) {
     soup_server_disconnect(servers[i]);
