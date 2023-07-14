@@ -398,16 +398,23 @@ int main(int argc, char *argv[]) {
   loop_ = g_main_loop_new (NULL, TRUE);
   signal(SIGTERM,gdial_quit_thread);
   g_main_loop_run (loop_);
+  g_print("Exited from Loop\r\n");
   g_mutex_lock(&mutex);
   for (int i = 0; i < sizeof(servers)/sizeof(servers[0]); i++) {
+    g_print("server %d disconnect start\r\n",i);
     soup_server_disconnect(servers[i]);
     g_object_unref(servers[i]);
+    g_print("server %d disconnect end\r\n",i);
   }
 
   gdial_shield_term();
+  g_print("gdial_shield_term\r\n");
   gdial_ssdp_destroy();
+  g_print("gdial_ssdp_destroy\r\n");
   g_object_unref(dial_rest_server);
+  g_print("g_object_unref(dial_rest_server)\r\n");
   gdial_plat_term();
+  g_print("gdial_plat_term\r\n");
   g_mutex_unlock(&mutex);
   g_main_loop_unref(loop_);
   g_option_context_free(option_context);
